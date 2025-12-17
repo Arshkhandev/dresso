@@ -19,7 +19,7 @@ export type ItemType =
   | "shoes"
   | "boots";
 
-export type Fit =
+  export type Fit =
   | "slim"
   | "regular"
   | "relaxed"
@@ -41,3 +41,5 @@ export type WardrobeItem = {
   season?: Season[];
   tags?: string[]; // wide, neutral, layering, casual, formal, street
 };
+
+export type FitPrefence = Fit | "any";
