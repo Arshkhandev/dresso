@@ -34,6 +34,7 @@ export type WardrobeItem = {
   id: string;
   name: string;
   itemType: ItemType;
+  image:string;
   category: Category;
   color: string;
   fit?: Fit;
