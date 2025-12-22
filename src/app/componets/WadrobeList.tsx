@@ -1,7 +1,7 @@
 "use client";
 
 import { WardrobeItem } from "../types/wadrobe";
-import WadrobeCard from "../componets/WadrobeCard";
+import WardrobeCard from "./WadrobeCard";
 
 type Props = {
   items: WardrobeItem[];
@@ -18,14 +18,9 @@ const WadrobeList = ({ items }: Props) => {
 
   return (
     <div
-      className="
-        grid grid-cols-1 gap-6
-        sm:grid-cols-2
-        lg:grid-cols-3
-      "
-    >
+     className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {items.map(item => (
-        <WadrobeCard key={item.id} item={item} />
+        <WardrobeCard key={item.id} item={item} />
       ))}
     </div>
   );

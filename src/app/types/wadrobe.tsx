@@ -1,4 +1,5 @@
 export type Category =
+  |"all"
   | "top"
   | "bottom"
   | "outerwear"
