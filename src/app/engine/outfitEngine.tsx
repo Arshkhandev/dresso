@@ -1,5 +1,6 @@
-import { WardrobeItem,FitPrefence,Season,ItemType,Category } from "../types/wadrobe";
+import { WardrobeItem,FitPrefence,Season,ItemType,Category,OutfitSlot,Outfit } from "../types/wadrobe";
 import { wardrobe } from "../data/wadrobe";
+import WadrobeList from "../componets/WadrobeList";
 
 export function getItemByFit(preffit:FitPrefence){
     if(preffit === "any"){
@@ -50,4 +51,50 @@ export function getItemByName(name: string) {
   });
 }
 
+
+export function GetOutfit(outfit:string){
+  wardrobe.filter((item) => {
+    return item.category === outfit
+  })
+}
+
+
+
+
+
+export function addToOutfit(
+  currentOutfit: Outfit,
+  item: WardrobeItem
+): Outfit {
+  const slot = item.category as OutfitSlot;
+
+  return {
+    ...currentOutfit,
+    [slot]: item,
+  };
+}
+
+
+
+export function removeFromOutfit(
+  currentOutfit: Outfit,
+  slot: OutfitSlot
+): Outfit {
+  return {
+    ...currentOutfit,
+    [slot]: undefined,
+  };
+}
+
+
+
+
+export function isItemInOutfit(
+  outfit: Outfit,
+  item: WardrobeItem
+): boolean {
+  return Object.values(outfit).some(
+    (outfitItem) => outfitItem?.id === item.id
+  );
+}
 

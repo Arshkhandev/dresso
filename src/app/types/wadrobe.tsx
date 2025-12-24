@@ -1,5 +1,12 @@
 export type Category =
-  |"all"
+  | "all"
+  | "top"
+  | "bottom"
+  | "outerwear"
+  | "footwear"
+  | "accessory";
+
+export type OutfitSlot =
   | "top"
   | "bottom"
   | "outerwear"
@@ -20,7 +27,7 @@ export type ItemType =
   | "shoes"
   | "boots";
 
-  export type Fit =
+export type Fit =
   | "slim"
   | "regular"
   | "relaxed"
@@ -29,19 +36,39 @@ export type ItemType =
   | "boxy"
   | "balloon";
 
+export type FitPrefence = Fit | "any";
+
 export type Season = "summer" | "winter" | "all";
 
+// 👕 Item
 export type WardrobeItem = {
   id: string;
   name: string;
   itemType: ItemType;
-  image:string;
-  category: Category;
+  image: string;
+  category: OutfitSlot;
   color: string;
   fit?: Fit;
   brand?: string;
   season?: Season[];
-  tags?: string[]; // wide, neutral, layering, casual, formal, street
+  tags?: string[];
 };
 
-export type FitPrefence = Fit | "any";
+// 🧩 Editable outfit (draft)
+export type OutfitSlots = {
+  top?: WardrobeItem;
+  bottom?: WardrobeItem;
+  outerwear?: WardrobeItem;
+  footwear?: WardrobeItem;
+  accessory?: WardrobeItem;
+};
+
+// 👗 Saved outfit
+export type Outfit = {
+  id: string;
+  name: string;
+  items: OutfitSlots;
+};
+
+// 📦 Outfit list
+export type OutfitCollection = Outfit[];
