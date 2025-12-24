@@ -1,11 +1,11 @@
 "use client";
 
-import { WardrobeItem, Outfit, OutfitSlot } from "../types/wadrobe";
+import { WardrobeItem, OutfitSlots, OutfitSlot } from "../types/wadrobe";
 import WardrobeCard from "./WadrobeCard";
 
 type Props = {
   items: WardrobeItem[];
-  outfit: Outfit;
+  outfit: OutfitSlots; // ✅ FIXED
   onAddToOutfit: (item: WardrobeItem) => void;
   onRemoveFromOutfit: (slot: OutfitSlot) => void;
 };
@@ -30,7 +30,7 @@ const WadrobeList = ({
         <WardrobeCard
           key={item.id}
           item={item}
-          outfit={outfit}
+          outfit={outfit} // ✅ matches WardrobeCard
           onAddToOutfit={onAddToOutfit}
           onRemoveFromOutfit={onRemoveFromOutfit}
         />

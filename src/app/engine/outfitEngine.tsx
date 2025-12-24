@@ -1,4 +1,4 @@
-import { WardrobeItem,FitPrefence,Season,ItemType,Category,OutfitSlot,Outfit } from "../types/wadrobe";
+import { WardrobeItem,FitPrefence,Season,ItemType,Category,OutfitSlot,Outfit,OutfitSlots } from "../types/wadrobe";
 import { wardrobe } from "../data/wadrobe";
 import WadrobeList from "../componets/WadrobeList";
 
@@ -88,13 +88,11 @@ export function removeFromOutfit(
 
 
 
-
 export function isItemInOutfit(
-  outfit: Outfit,
+  outfit: OutfitSlots,
   item: WardrobeItem
 ): boolean {
   return Object.values(outfit).some(
     (outfitItem) => outfitItem?.id === item.id
   );
 }
-

@@ -29,7 +29,7 @@ export default function FilterSidebar({
           Category
         </h3>
         <div className="flex flex-col gap-2">
-          {["all", "top", "bottom", "shoes"].map((cat) => (
+          {["all", "top", "bottom", "footwear"].map((cat) => (
             <button
               key={cat}
               onClick={() => setCategory(cat as Category)}
