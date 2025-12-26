@@ -1,98 +1,88 @@
-import { WardrobeItem,FitPrefence,Season,ItemType,Category,OutfitSlot,Outfit,OutfitSlots } from "../types/wadrobe";
+import {
+  WardrobeItem,
+  FitPreference,
+  Season,
+  ItemType,
+  Category,
+  OutfitSlot,
+  OutfitSlots,
+  BASIC_OUTFIT_RULE,
+} from "../types/wadrobe";
 import { wardrobe } from "../data/wadrobe";
-import WadrobeList from "../componets/WadrobeList";
 
-export function getItemByFit(preffit:FitPrefence){
-    if(preffit === "any"){
-        return wardrobe;
-    }
-    const filterItem = wardrobe.filter((item) => {
-        return item.fit === preffit;
-    });
 
-    return filterItem;
+
+export function getItemsByFit(fit: FitPreference): WardrobeItem[] {
+  if (fit === "any") return wardrobe;
+  return wardrobe.filter(item => item.fit === fit);
 }
 
-
-export function getItemBySeason(season:Season){
-    if(season === "all"){
-        return wardrobe;
-    }
-    return wardrobe.filter(item =>
-    item.season?.includes(season)
-  );
+export function getItemsBySeason(season: Season): WardrobeItem[] {
+  if (season === "all") return wardrobe;
+  return wardrobe.filter(item => item.season?.includes(season));
 }
 
-
-export function getItemByCategory (cat:Category){
-  return wardrobe.filter((item) => item.category === cat);
+export function getItemsByCategory(category: Category): WardrobeItem[] {
+  if (category === "all") return wardrobe;
+  return wardrobe.filter(item => item.category === category);
 }
 
-export function getItemByType(type:ItemType){
-    return wardrobe.filter(item => 
-     item.itemType === type
-    );
+export function getItemsByType(type: ItemType): WardrobeItem[] {
+  return wardrobe.filter(item => item.itemType === type);
 }
 
-export function getItemByName(name: string) {
-  const q = name.toLowerCase();
+export function searchItems(query: string): WardrobeItem[] {
+  const q = query.toLowerCase().trim();
+  if (!q) return wardrobe;
 
   return wardrobe.filter(item => {
-    const matchName = item.name.toLowerCase().includes(q);
-    const matchColor = item.color.toLowerCase().includes(q);
-    const matchBrand = item.brand
-      ? item.brand.toLowerCase().includes(q)
-      : false;
-    const matchTags = item.tags?.some(tag =>
-      tag.toLowerCase().includes(q)
-    ) ?? false;
-
-    return matchName || matchColor || matchBrand || matchTags;
+    return (
+      item.name.toLowerCase().includes(q) ||
+      item.color.toLowerCase().includes(q) ||
+      item.brand?.toLowerCase().includes(q) ||
+      item.tags?.some(tag => tag.toLowerCase().includes(q))
+    );
   });
 }
 
 
-export function GetOutfit(outfit:string){
-  wardrobe.filter((item) => {
-    return item.category === outfit
-  })
-}
-
-
-
-
-
 export function addToOutfit(
-  currentOutfit: Outfit,
+  outfit: OutfitSlots,
   item: WardrobeItem
-): Outfit {
-  const slot = item.category as OutfitSlot;
-
+): OutfitSlots {
   return {
-    ...currentOutfit,
-    [slot]: item,
+    ...outfit,
+    [item.category]: item,
   };
 }
-
-
 
 export function removeFromOutfit(
-  currentOutfit: Outfit,
+  outfit: OutfitSlots,
   slot: OutfitSlot
-): Outfit {
-  return {
-    ...currentOutfit,
-    [slot]: undefined,
-  };
+): OutfitSlots {
+  const next = { ...outfit };
+  delete next[slot];
+  return next;
 }
-
-
 
 export function isItemInOutfit(
   outfit: OutfitSlots,
   item: WardrobeItem
 ): boolean {
   return Object.values(outfit).some(
-    (outfitItem) => outfitItem?.id === item.id
+    outfitItem => outfitItem?.id === item.id
+  );
+}
+
+
+export function isOutfitValid(outfit: OutfitSlots): boolean {
+  return BASIC_OUTFIT_RULE.requiredSlots.every(
+    slot => Boolean(outfit[slot])
+  );
+}
+
+export function getMissingSlots(outfit: OutfitSlots): OutfitSlot[] {
+  return BASIC_OUTFIT_RULE.requiredSlots.filter(
+    slot => !outfit[slot]
   );
 }

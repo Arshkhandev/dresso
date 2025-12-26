@@ -1,17 +1,11 @@
-export type Category =
-  | "all"
-  | "top"
-  | "bottom"
-  | "outerwear"
-  | "footwear"
-  | "accessory";
-
 export type OutfitSlot =
   | "top"
   | "bottom"
   | "outerwear"
   | "footwear"
   | "accessory";
+
+export type Category = OutfitSlot | "all";
 
 export type ItemType =
   | "shirt"
@@ -36,17 +30,31 @@ export type Fit =
   | "boxy"
   | "balloon";
 
-export type FitPrefence = Fit | "any";
+export type FitPreference = Fit | "any";
 
 export type Season = "summer" | "winter" | "all";
 
-// 👕 Item
+export const ItemTypeToSlot: Record<ItemType, OutfitSlot> = {
+  shirt: "top",
+  tshirt: "top",
+  polo: "top",
+  sweater: "top",
+  hoodie: "top",
+  tank: "top",
+  flannel: "top",
+  jacket: "outerwear",
+  pants: "bottom",
+  shorts: "bottom",
+  shoes: "footwear",
+  boots: "footwear",
+};
+
 export type WardrobeItem = {
   id: string;
   name: string;
   itemType: ItemType;
-  image: string;
   category: OutfitSlot;
+  image: string;
   color: string;
   fit?: Fit;
   brand?: string;
@@ -54,21 +62,22 @@ export type WardrobeItem = {
   tags?: string[];
 };
 
-// 🧩 Editable outfit (draft)
-export type OutfitSlots = {
-  top?: WardrobeItem;
-  bottom?: WardrobeItem;
-  outerwear?: WardrobeItem;
-  footwear?: WardrobeItem;
-  accessory?: WardrobeItem;
-};
+export type OutfitSlots = Partial<Record<OutfitSlot, WardrobeItem>>;
 
-// 👗 Saved outfit
 export type Outfit = {
   id: string;
   name: string;
   items: OutfitSlots;
 };
 
-// 📦 Outfit list
 export type OutfitCollection = Outfit[];
+
+export type OutfitRule = {
+  requiredSlots: OutfitSlot[];
+  optionalSlots?: OutfitSlot[];
+};
+
+export const BASIC_OUTFIT_RULE: OutfitRule = {
+  requiredSlots: ["top", "bottom", "footwear"],
+  optionalSlots: ["outerwear", "accessory"],
+};

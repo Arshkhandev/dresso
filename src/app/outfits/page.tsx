@@ -12,6 +12,11 @@ export default function OutfitsPage() {
     if (saved) setOutfits(JSON.parse(saved));
   }, []);
 
+ const clearOutfits = () => {
+  localStorage.removeItem("outfits");
+  setOutfits([]);
+};
+
   return (
     
     <main className="max-w-350 mx-auto px-6 py-10">
@@ -39,6 +44,9 @@ export default function OutfitsPage() {
                     item && <li key={item.id}>{item.name}</li>
                 )}
               </ul>
+              <button onClick={clearOutfits}>
+              Clear Outfit
+             </button>
             </div>
           ))}
         </div>

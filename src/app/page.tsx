@@ -13,7 +13,7 @@ import {
   OutfitSlot,
   WardrobeItem,
   Category,
-  FitPrefence,
+  FitPreference,
   Season,
   Outfit,
 } from "./types/wadrobe";
@@ -24,7 +24,7 @@ export default function Home() {
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<Category>("all");
-  const [fit, setFit] = useState<FitPrefence>("any");
+  const [fit, setFit] = useState<FitPreference>("any");
   const [season, setSeason] = useState<Season>("all");
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export default function Home() {
 
           <button
             onClick={handleSaveOutfit}
-            className="px-4 py-2 rounded-lg bg-emerald-600 text-white"
+            className="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:cursor-pointer hover:bg-white hover:text-green-600"
           >
             Save Outfit
           </button>
