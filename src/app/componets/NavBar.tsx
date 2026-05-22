@@ -22,15 +22,15 @@ export default function Navbar() {
 
         <div className="flex items-center gap-6 text-sm">
           <Link href="/" className={linkClass("/")}>
-            Wardrobe
+            Wardrobe essentials
           </Link>
 
           <Link href="/outfits" className={linkClass("/outfits")}>
-            Outfits
+            Outfits woreing
           </Link>
 
           <Link href="/profile" className={linkClass("/profile")}>
-            Profile
+            Profile of person
           </Link>
         </div>
       </div>
